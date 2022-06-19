@@ -1,5 +1,6 @@
 var employeeNameInput = document.getElementById('employeeName');
 var employeeAgeInput = document.getElementById('employeeAge');
+var employeePhoneInput = document.getElementById('employeePhone');
 var employeeDepartmentInput = document.getElementById('employeeDepartment');
 var employeeSalaryInput = document.getElementById('employeeSalary');
 var inputs = document.getElementsByClassName('form-control');
@@ -29,6 +30,7 @@ function addEmployee(){
     var employee = {
         name : employeeNameInput.value,
         age : employeeAgeInput.value,
+        phone : employeePhoneInput.value,
         department : employeeDepartmentInput.value,
         salary : employeeSalaryInput.value,
     }
@@ -50,7 +52,8 @@ function displayData(){
         result += `<tr>
         <td> ${i} </td> 
         <td> ${employees[i].name} </td> 
-        <td> ${employees[i].age} </td> 
+        <td> ${employees[i].age} </td>
+        <td> ${employees[i].phone} </td>
         <td> ${employees[i].department} </td> 
         <td> ${employees[i].salary} </td> 
         <td> <button onclick="getEmployeeData(${i})" class="update"> update </button> </td> 
@@ -120,6 +123,7 @@ function search(searchText){
             <td> ${i} </td> 
             <td> ${employees[i].name} </td> 
             <td> ${employees[i].age} </td> 
+            <td> ${employees[i].phone} </td> 
             <td> ${employees[i].department} </td> 
             <td> ${employees[i].salary} </td> 
             <td> <button class="update"> update </button> </td> 
@@ -133,6 +137,7 @@ function search(searchText){
 function getEmployeeData(index){
     employeeNameInput.value = employees[index].name;
     employeeAgeInput.value = employees[index].age;
+    employeePhoneInput.value = employees[index].phone;
     employeeDepartmentInput.value = employees[index].department;
     employeeSalaryInput.value = employees[index].salary;
 
@@ -143,6 +148,7 @@ function getEmployeeData(index){
 function updateEmployee(){
     employees[currentIndex].name = employeeNameInput.value;
     employees[currentIndex].age = employeeAgeInput.value;
+    employees[currentIndex].phone = employeePhoneInput.value;
     employees[currentIndex].department = employeeDepartmentInput.value;
     employees[currentIndex].salary = employeeSalaryInput.value;
     
@@ -174,20 +180,38 @@ employeeName.onkeyup = function(){
 }
 
 employeeAge.onkeyup = function(){
-    var agePatter ;
+    var agePatter = /^([2-7][0-9]|80){1}$/;
+    //OR
+    // var agePatter = /^100|[1-9]\d|[1-9]$/;
     if(agePatter.test(employeeAge.value)){
         addBtn.removeAttribute("disabled");
         employeeAge.classList.add("is-valid");
         employeeAge.classList.remove("is-invalid");
+        ageAlert.classList.add("d-none");
     }else{
         addBtn.setAttribute("disabled","true");
         employeeAge.classList.add("is-invalid");
         employeeAge.classList.remove("is-valid");
+        ageAlert.classList.remove("d-none");
+    }
+}
+
+employeePhone.onkeyup = function(){
+    var phonePatter = /^(\+970|\+972|00970|00972)[0-9]{2}[0-9]{3}[0-9]{4}$/;
+    // var phonePatter = /^[+][970]|[972]\(?(\d{2})\)?[- ]?(\d{3})[- ]?(\d{4})$/;
+    if(phonePatter.test(employeePhone.value)){
+        addBtn.removeAttribute("disabled");
+        employeePhone.classList.add("is-valid");
+        employeePhone.classList.remove("is-invalid");
+    }else{
+        addBtn.setAttribute("disabled","true");
+        employeePhone.classList.add("is-invalid");
+        employeePhone.classList.remove("is-valid");
     }
 }
 
 employeeDepartment.onkeyup = function(){
-    var departmentPattern ;
+    var departmentPattern = /^[A-Z][a-z]{1,15}$/;
     if(departmentPattern.test(employeeDepartment)){
         addBtn.removeAttribute("disabled");
         employeeDepartment.classList.add("is-valid");

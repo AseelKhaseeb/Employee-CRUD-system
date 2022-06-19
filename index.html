@@ -29,6 +29,11 @@
             <div class="mb-3">
                 <label for="employeeAge" class="form-label">Age</label>
                 <input type="number" class="form-control is-invalid" id="employeeAge">
+                <div id="ageAlert" class="alert alert-danger d-none">please start with number</div>
+            </div>
+            <div class="mb-3">
+                <label for="employeePhone" class="form-label">Phone</label>
+                <input type="tel" class="form-control is-invalid" id="employeePhone">
             </div>
             <div class="mb-3">
                 <label for="employeeDepartment" class="form-label">Department</label>
@@ -51,6 +56,7 @@
                         <th class="text-center">#</th>
                         <th class="text-center">name</th>
                         <th class="text-center">age</th>
+                        <th class="text-center">phone</th>
                         <th class="text-center" style="width: 200px;">department</th>
                         <th class="text-center">salary</th>
                         <th class="text-center">update</th>
